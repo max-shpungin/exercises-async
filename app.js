@@ -55,19 +55,24 @@ async function showNumberRace() {
 
 async function showNumberAll() {
 
-  const r1 = fetch(`${BASE_API}/random/trivia?json`);
-  const r2 = fetch(`${BASE_API}/random/trivia?json`);
-  const r3 = fetch(`${BASE_API}/random/trivia?json`);
-  const r4 = fetch(`${BASE_API}/WRONG`);
+  const p1 = fetch(`${BASE_API}/random/trivia?json`);
+  const p2 = fetch(`${BASE_API}/random/trivia?json`);
+  const p3 = fetch(`${BASE_API}/random/trivia?json`);
+  const p4 = fetch(`${BASE_API}/WRONG`);
 
-  const response = await Promise.allSettled([r1,r2,r3,r4]);
+  const settledPromises = await Promise.allSettled([p1,p2,p3,p4]);
 
+  // console.log(settledPromises);
+  // return settledPromises;
 
+  for (promise of settledPromises){
+    console.log(await promise.value.json())
+  }
 
+}
 
-
-  console.log(response);
-  return response;
+async function resolvePromise(promise){
+  return await promise
 }
 
 showNumberAll();
